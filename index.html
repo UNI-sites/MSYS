@@ -21,6 +21,10 @@
                     <label><input type="radio" name="q1" value="-64"> -64</label>
                 </div>
                 <div class="feedback" data-for="q1"></div>
+                <!-- Optional inline HTML explanation (hidden until shown). Authors can edit this in HTML. -->
+                <div class="explain" hidden>
+                    <p><strong>Hint:</strong> Konvertering fra to-komplement kan gøres ved at invertere alle bits og derefter lægge 1 til. F.eks. <code>0b11001011</code> inverteres til <code>0b00110100</code>, læg 1 til → <code>0b00110101</code> (53). Da originalen er to-komplement, er tallet -53.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q1">Tjek svar (1)</button></div>
             </section>
 
@@ -34,6 +38,9 @@
                     <label><input type="radio" name="q2" value="12MHz"> CPU clockfrekvensen ændres til 12 MHz</label>
                 </div>
                 <div class="feedback" data-for="q2"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Strømforbruget i en mikrocontroller stiger typisk både med forsyningsspændingen og med clockfrekvensen. En højere spænding øger den effekt der omsættes i kredsløbet, og en højere clockfrekvens gør, at CPU'en udfører flere instruktioner pr. sekund og derfor bruger mere strøm. I denne opgave er eneste mulighed der øger forbruget (i forhold til 5,0 V / 10 MHz) at øge clockfrekvensen til 12 MHz — at skifte til 4 V ville tværtimod reducere forbruget, og at sænke frekvensen til 8 MHz reducerer også forbruget.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q2">Tjek svar (2)</button></div>
             </section>
 
@@ -47,6 +54,9 @@
                     <label><input type="radio" name="q3" value="opt4"> Z = 0 og C = 0</label>
                 </div>
                 <div class="feedback" data-for="q3"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> ADD R20,R21: 100 + 156 = 256. Et 8‑bit register kan kun holde 0–255, så resultatet ruller over til 0 (256 mod 256 = 0) — derfor sættes Z = 1; fordi summen oversteg 255 sættes også C = 1. LDI R20,56 ændrer registeret, men ikke flagene sat af ADD.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q3">Tjek svar (3)</button></div>
             </section>
 
@@ -99,6 +109,11 @@
                     <label><input type="radio" name="q4" value="opt4"> <div>ADC R22,R20<br>ADD R23,R21</div></label>
                 </div>
                 <div class="feedback" data-for="q4"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Tilføj lavordet først; hvis lavordets sum overstiger 255 opstår en carry som skal med i højordet. Derfor bruges <code>ADD R22,R20</code> efterfulgt af <code>ADC R23,R21</code> (add with carry) for at få korrekt 16‑bit resultat.</p>
+                    <pre>ADD R22,R20
+ADC R23,R21</pre>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q4">Tjek svar (4)</button></div>
             </section>
 
@@ -165,6 +180,41 @@ A2:
                     <label><input type="radio" name="q5" value="opt4"> DELAYB tager længst tid</label>
                 </div>
                 <div class="feedback" data-for="q5"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> DELAYC har indlejrede løkker (fx R19 = 10 og R18 = 50) så det ydre og indre loop multiplicerer antal iterationer. Det giver mange flere samlede instruktioner før RET end de andre delays, og på grund af multipliceret iterationsantal tager DELAYC længst tid. <pre>
+DELAYC
+assembly
+CLR R17 ;                       1 cycle
+LDI R19, 10 ;                   1 cycle
+A2:
+ LDI R18, 50 ;                  1 cycle                 × 10
+A1:
+ DEC R17 ;                      1 cycle  × 256  × 50    × 10
+ BRNE A1 ;                      2 cycles × 256  × 50    × 10
+           da BRNE ikke hopper -1 cycle         × 50    × 10    
+ DEC R18 ;                      1 cycle         × 50    × 10
+ BRNE A1 ;                      2 cycles        × 50    × 10
+           da BRNE ikke hopper -1 cycle                 × 10
+ DEC R19 ;                      1 cycle                 × 10
+ BRNE A2 ;                      2 cycles                × 10
+           da BRNE ikke hopper -1 cycle                 × 10
+RET ;                           4 cycle
+
+
+DELAYA:
+Kort og simpelt resume:
+- DELAYA ≈ 197.125 cycles
+- DELAYB ≈ 170.175 cycles
+- DELAYC ≈ 385.525 cycles  ← længst (indlejrede løkker)
+- DELAYD ≈ 21.784 cycles
+
+Konklusion: DELAYC tager klart længst tid på grund af de indlejrede loops.
+
+Kompakt udregning for DELAYC:
+1 + 1 + ((1 + (1 + 2) * 256 - 1 + 1 + 2) * 50 - 1 + 1 + 2) * 10 - 1 + 4 = 385,525
+
+                    </pre></p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q5">Tjek svar (5)</button></div>
             </section>
 
@@ -187,6 +237,9 @@ NEXT: INC R16
                     <label><input type="radio" name="q6" value="37.5"> 37,50 mikrosekunder</label>
                 </div>
                 <div class="feedback" data-for="q6"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Startværdi er 100 og hver gennemkørsel reducerer tællerværdien effektivt med 1, så der køres 100 iterationer. Antag instruktionscyklusser ≈ INC(1) + DEC(1) + DEC(1) + BRNE(taget=2) = 5 cyklusser/iteration → 100×5 / 16 000 000 = 31,25 µs.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q6">Tjek svar (6)</button></div>
             </section>
 
@@ -203,6 +256,9 @@ NEXT: INC R16
                     <label><input type="radio" name="q7" value="256"> 256</label>
                 </div>
                 <div class="feedback" data-for="q7"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> R18 sættes til 255. Når du inkrementerer 255 gives 256, men 8‑bit register ruller over (256 mod 256 = 0) — derfor ender R18 med værdien <strong>0</strong>.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q7">Tjek svar (7)</button></div>
             </section>
 
@@ -215,6 +271,13 @@ NEXT: INC R16
                     <label><input type="radio" name="q8" value="opt4"> <div>IN  R24,PINA<br>COM R24<br>DEC R24<br>OUT PORTB,R24</div></label>
                 </div>
                 <div class="feedback" data-for="q8"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Rækkefølgen er: <pre>
+læs fra PINA; 
+træk 1 fra (DEC); 
+komplementér bittene (COM); 
+skriv til PORTB. </pre> Det svarer direkte til <code>PORTB = ~(PINA - 1);</code>, så resultatet bliver det bitvise complement af (PINA−1).</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q8">Tjek svar (8)</button></div>
             </section>
 
@@ -235,6 +298,9 @@ x &= 0b00001000;</pre></h2>
                     <label><input type="radio" name="q9" value="opt4"> Maskinkoden for eksempel 1 vil afvikles hurtigst</label>
                 </div>
                 <div class="feedback" data-for="q9"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Kompilatoren omsætter begge udtryk til en bitwise AND af registeret med konstantmasken, så den generer typisk samme maskinkode. Forskellen er syntaktisk i koden, ikke funktionelt i det resulterende program — begge gør x ∧ mask.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q9">Tjek svar (9)</button></div>
             </section>
 
@@ -247,6 +313,9 @@ x &= 0b00001000;</pre></h2>
                     <label><input type="radio" name="q10" value="opt4"> PORTB = PINB ^ 0b00000100;</label>
                 </div>
                 <div class="feedback" data-for="q10"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> XOR (^) med masken <code>0b00000100</code> inverterer kun den enkelte bit som masken har sat (LED2). De andre bits forbliver uændrede, så kun LED2 toggles ved hvert kald.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q10">Tjek svar (10)</button></div>
             </section>
 
@@ -290,6 +359,9 @@ while (1)
 }</pre></label>
                 </div>
                 <div class="feedback" data-for="q11"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> For at læse bits fra porte skal de konfigureres som inputs <br>(DDRA = 0, DDRB = 0); <br>for at skrive til en port skal dens DDR være output <br>(DDRC = 0xFF). <br>Derfor læser man data med <code>PINA</code>/<code>PINB</code> og skriver summen til <code>PORTC</code> — det sikrer korrekt retning af data.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q11">Tjek svar (11)</button></div>
             </section>
 
@@ -297,7 +369,7 @@ while (1)
                 <h2 id="q12">12)<br> En Mega2560 har en CPU clockfrekvens på 16 MHz.<br>
 Vi sætter timer 2 i "Normal Mode".<br>
 Hvad er den korteste tid, som vi vil kunne få mellem to efterfølgende timer 2 overflows?</h2>
-                    <span>Der skrives ikke til registeret TCNT2 fra programmet.</span><br><br>
+                    <span>Der skrives ikke til registeret TCNT2 fra programmet.<br> <strong>Han har lavet fejl i quizzen ved denne opgave</strong></span><br><br>
                 <div class="options">
                     <label><input type="radio" name="q12" value="16us"> 16 mikrosekunder</label>
                     <label><input type="radio" name="q12" value="16ms"> ca. 16 millisekunder</label>
@@ -305,6 +377,9 @@ Hvad er den korteste tid, som vi vil kunne få mellem to efterfølgende timer 2 
                     <label><input type="radio" name="q12" value="4.1ms"> ca. 4,1 millisekunder</label>
                 </div>
                 <div class="feedback" data-for="q12"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Timer2 er 8‑bit (0–255), så overflow sker efter 256 cycles. <br>Uden prescaler gør at hver cycle tager 1/CPU eller 1/16MHz. <br> Dette ganges med antal cyles for overflow → 256/16 000 000 = <strong>16 µs</strong>, <br>Dette er tiden fra 0 til overflow og da et overflow resultere i 0 er dette også tiden mellem to overflows.<br> <strong>Dermed er svaret 16 mikrosekunder.</strong> <br> i quizen formoder jeg han har lavet fejl og sat resultatet til ca 16 milisekunder</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q12">Tjek svar (12)</button></div>
             </section>
 
@@ -317,6 +392,15 @@ Hvad er den korteste tid, som vi vil kunne få mellem to efterfølgende timer 2 
                     <label><input type="radio" name="q13" value="opt4"> <br>TCCR2A = 0b00000000; <br>TCCR2B = 0b00000010</label>
                 </div>
                 <div class="feedback" data-for="q13"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> En 8‑bit timer tæller CPU‑cycles (efter prescaler) fra 0 til 255 — ved 256 tællinger sker overflow. Generel formel for overflow‑rate er:
+                    <br><code>overflow_rate = CPU_clock / (prescaler × 256)</code>
+                    Hvis du i stedet vil løse for prescaler isolerer du den i formlen:
+                    <br><code>prescaler = CPU_clock / (overflow_rate × 256)</code>
+                    Brug nu CPU_clock = 8 000 000 Hz og ønsket overflow_rate = 31 250/s:
+                    <br><code>prescaler = 8 000 000 / (31 250 × 256) = 8 000 000 / 8 000 000 = 1</code>
+                    Altså er den nødvendige prescaler præcis <strong>1</strong>. (I praksis vælger man fra de tilgængelige prescaler‑værdier som f.eks. 1, 8, 32, 64, 128, 256, 1024.)</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q13">Tjek svar (13)</button></div>
             </section>
 
@@ -332,6 +416,16 @@ TCCR0B = 0b00000010;</pre>
                     <label><input type="radio" name="q14" value="199"> OCR0A = 199</label>
                 </div>
                 <div class="feedback" data-for="q14"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> I CTC toggle‑mode er relationen mellem clock, prescaler og OCR0A:
+                    <br><code>f = clock / (2 × N × (OCR0A + 1))</code>
+                    Hvis vi isolerer OCR0A algebraisk får vi:
+                    <br><code>OCR0A + 1 = clock / (2 × N × f)</code>
+                    <br><code>OCR0A = (clock / (2 × N × f)) − 1</code>
+                    Indsæt clock = 16 000 000, N = 8 og f = 8000:
+                    <br><code>OCR0A = (16 000 000 / (2 × 8 × 8000)) − 1 = 125 − 1 = 124</code>
+                    Derfor er OCR0A = <strong>124</strong> den rigtige værdi for ≈8 kHz på OC0A.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q14">Tjek svar (14)</button></div>
             </section>
 
@@ -345,6 +439,18 @@ TCCR0B = 0b00000010;</pre>
                     <label><input type="radio" name="q15" value="opt4"> <br>TCCR2A = 0b01000010;<br>TCCR2B = 0b00000001;<br>OCR2A = 191;</label>
                 </div>
                 <div class="feedback" data-for="q15"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> I CTC toggle‑mode gælder
+                    <br><code>f = clock / (2 × N × (OCR2A + 1))</code>
+                    Løs algebraisk for OCR2A:
+                    <br><code>OCR2A + 1 = clock / (2 × N × f)</code>
+                    <br><code>OCR2A = (clock / (2 × N × f)) − 1</code>
+                    Her må der gættes en passende prescaler N ud fra mulighederne. Vi prøver N = 32:
+                    <br>
+                    Indsæt clock = 3 686 400, N = 32 og f = 300 Hz:
+                    <br><code>OCR2A = (3 686 400 / (2 × 32 × 300)) − 1 = 192 − 1 = 191</code>
+                    Så OCR2A = <strong>191</strong> giver ≈300 Hz.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q15">Tjek svar (15)</button></div>
             </section>
 
@@ -360,6 +466,11 @@ TCCR1B = 0b00000001;</pre>
                     <label><input type="radio" name="q16" value="256"> OCR1B = 256</label>
                 </div>
                 <div class="feedback" data-for="q16"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> I 10‑bit Fast PWM er TOP = 1023. Forbindelsen mellem duty og compare‑værdi er:
+                    <br><code>OCR1B = duty_fraction × (TOP)</code>
+                    For 50% duty: <code>OCR1B = 0.5 × 1023 ≈ 511.5</code> → afrundet <strong>512</strong>, derfor OCR1B = 512 giver ~50% duty.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q16">Tjek svar (16)</button></div>
             </section>
 
@@ -377,6 +488,11 @@ TCCR1B = 0b00000001;</pre>
                     <label><input type="radio" name="q17" value="opt4"> Frekvensen halveres. Duty cycle er uændret.</label>
                 </div>
                 <div class="feedback" data-for="q17"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> For 10‑bit Fast PWM er frekvensen
+                    <br><code>f = CPU_clock / (prescaler × 1024)</code>
+                    Hvis CPU_clock halveres, halveres f (f → f/2). Duty‑cycle beregnes fra forholdet OCR/TOP og påvirkes ikke procentvist af clock‑ændringen, så duty forbliver uændret mens frekvensen ændres.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q17">Tjek svar (17)</button></div>
             </section>
 
@@ -389,6 +505,9 @@ TCCR1B = 0b00000001;</pre>
                     <label><input type="radio" name="q18" value="opt4"> <br>EIMSK = 0b00000001;<br>EICRA = 0b00000000;<br>EICRB = 0b00000011;</label>
                 </div>
                 <div class="feedback" data-for="q18"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Aktivér INT0‑bit i EIMSK for at slå interruptet til, og sæt i EICRA ISC01=1 og ISC00=0 (mønster 10 = falling edge) for at konfigurere faldende flanketrigger. Sørg for, at andre interrupt‑enable‑bits forbliver 0 hvis de skal være disabled.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q18">Tjek svar (18)</button></div>
             </section>
 
@@ -401,6 +520,9 @@ TCCR1B = 0b00000001;</pre>
                     <label><input type="radio" name="q19" value="opt4"> <br>TIMSK &= 0b00000001;<br>sei();</label>
                 </div>
                 <div class="feedback" data-for="q19"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Sæt TOIE5‑bitten i TIMSK5 (Timer5 Overflow Interrupt Enable — ofte bit 0) for at aktivere overflow‑interruptet. Husk at aktivere globale interrupts (fx <code>sei()</code>) så ISR'en faktisk kan køres.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q19">Tjek svar (19)</button></div>
             </section>
 
@@ -413,6 +535,9 @@ TCCR1B = 0b00000001;</pre>
                     <label><input type="radio" name="q20" value="opt4"> <br>unsigned char CharReady() {<br>   return UCSR0A | 0b00100000;<br>}</label>
                 </div>
                 <div class="feedback" data-for="q20"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> RXC0 i UCSR0A (mask 0b10000000) er 1 når en modtaget karakter er klar i UDR0. At AND'e UCSR0A med denne maske returnerer en ikke‑nul værdi når karakteren er klar — derfor er dette en korrekt testfunktion.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q20">Tjek svar (20)</button></div>
             </section>
 
@@ -425,6 +550,9 @@ TCCR1B = 0b00000001;</pre>
                     <label><input type="radio" name="q21" value="2400"> 2400 bit/s</label>
                 </div>
                 <div class="feedback" data-for="q21"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> Et frame indeholder 1 start + 8 data + 1 paritet + 2 stop = 12 bits. 12 bits på 2,5 ms → 12/0.0025 = 4800 baud.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q21">Tjek svar (21)</button></div>
             </section>
 
@@ -437,6 +565,9 @@ TCCR1B = 0b00000001;</pre>
                     <label><input type="radio" name="q22" value="opt4"> <br>ADMUX = 0b00000110;<br>ADCSRA = 0b10000011;<br>ADCSRB = 0b00000000;</label>
                 </div>
                 <div class="feedback" data-for="q22"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> ADC'en skal køre med clock mellem ca. 50–200 kHz. Med CPU 16 MHz og prescaler 128 får man ADC_clock ≈ 16 000 000 / 128 = 125 000 Hz, hvilket ligger i intervallet — ADMUX vælges til kanal ADC6 i denne konfiguration.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q22">Tjek svar (22)</button></div>
             </section>
 
@@ -449,6 +580,9 @@ TCCR1B = 0b00000001;</pre>
                     <label><input type="radio" name="q23" value="309"> 309</label>
                 </div>
                 <div class="feedback" data-for="q23"></div>
+                <div class="explain" hidden>
+                    <p><strong>Forklaring:</strong> ADC‑værdien ≈ round(1023 * (1.21 / 4.0)) ≈ 309 — derfor forventes cirka 309.</p>
+                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q23">Tjek svar (23)</button></div>
             </section>
 
@@ -513,14 +647,35 @@ TCCR1B = 0b00000001;</pre>
             ,q23: '309'
         };
 
+        // Optional HTML explanations shown when an answer is wrong.
+        // Put any HTML you want here (images, pre/code blocks, lists, etc.).
+        // Keep it simple — trusted content that will be inserted as innerHTML.
+        const explanations = {
+            q1: "<strong>Forkert.</strong> To-komplement omskrives til positiv på denne måde <code>~(bits-1)</code> eller <code>bits minus 1 hvorefter alle bits vændes</code> så dermed ville dette give <code>0b11001011 - 0b1 = 0b11001010</code> complimenteret <code>~0b11001010 = 0b00110101 = 53</code> nu skal vi huske tallet er negativt.",
+            q4: "<p>Rigtigt svar er at addere lavord først og derefter addere med carry til højord: <code>ADD R22,R20</code> og <code>ADC R23,R21</code>.</p>",
+            q8: "<p>Man skal læse <code>PINA</code>, decrementere, komplementere og så skrive til <code>PORTB</code> — eksempel:</p><pre>IN R24,PINA\nDEC R24\nCOM R24\nOUT PORTB,R24</pre>"
+        };
+
         function collectChecked(name){
             return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i=>i.value);
         }
 
-        function showFeedback(q, text, isCorrect){
+        function showFeedback(q, textOrHtml, isCorrect, isHtml = false){
             const el = document.querySelector(`.feedback[data-for="${q}"]`);
             el.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
-            el.textContent = text;
+            // If the content is flagged as HTML use innerHTML, otherwise render plain text
+            if(isHtml) el.innerHTML = textOrHtml;
+            else el.textContent = textOrHtml;
+        }
+
+        // Prefer inline explanation inside the question <section> (class .explain or .explanation)
+        // If none is found, fall back to the JS 'explanations' map.
+        function getExplanationFor(q, sec){
+            try{
+                const inline = sec && sec.querySelector && (sec.querySelector('.explain') || sec.querySelector('.explanation'));
+                if(inline && String(inline.innerHTML || '').trim()) return inline.innerHTML;
+            }catch(e){}
+            return explanations[q] || null;
         }
 
         function clearHighlight(q){
@@ -539,12 +694,15 @@ TCCR1B = 0b00000001;</pre>
             const sel = sec.querySelector(`input[name="${q}"]:checked`);
             if(!sel){ showFeedback(q,'Vælg et svar.', false); return; }
             if(sel.value === correctVal){ sel.parentElement.classList.add('correct'); showFeedback(q,'Korrekt!', true); }
-            else{
+                else{
                 sel.parentElement.classList.add('wrong');
                 // find correct and mark it
                 const corr = sec.querySelector(`input[name="${q}"][value="${correctVal}"]`);
                 if(corr) corr.parentElement.classList.add('correct');
-                showFeedback(q,`Forkert — korrekt svar er markeret nedenfor.`, false);
+                // Prefer an inline explanation if present, otherwise use the explanations map or fallback text
+                const explainHtml = getExplanationFor(q, sec);
+                if(explainHtml) showFeedback(q, explainHtml, false, true);
+                else showFeedback(q,`Forkert — korrekt svar er markeret nedenfor.`, false);
             }
         }
 
@@ -565,7 +723,11 @@ TCCR1B = 0b00000001;</pre>
             chosen.forEach(v=>{ if(!expected.has(v)){ anyWrong=true; const inp = sec.querySelector(`input[name="${q}"][value="${v}"]`); if(inp) inp.parentElement.classList.add('wrong'); } });
             if(chosen.length===0){ showFeedback(q,'Vælg mindst én.', false); }
             else if(!anyWrong && chosen.length === expected.size){ showFeedback(q, 'Korrekt — alle rigtige valgmuligheder valgt.', true); }
-            else{ showFeedback(q, 'Forkert — korrekte svar er markeret.', false); }
+            else{
+                const explainHtml = getExplanationFor(q, sec);
+                if(explainHtml) showFeedback(q, explainHtml, false, true);
+                else showFeedback(q, 'Forkert — korrekte svar er markeret.', false);
+            }
         }
 
         function markText(q, expected){
@@ -576,7 +738,12 @@ TCCR1B = 0b00000001;</pre>
             const value = (input.value||'').trim();
             if(!value){ showFeedback(q,'Skriv venligst et svar.', false); input.style.border='1px solid #c53030'; return; }
             if(value === expected){ showFeedback(q,'Korrekt!', true); input.style.border='2px solid #0b8a3a'; }
-            else{ showFeedback(q,`Forkert — korrekt svar er ${expected}.`, false); input.style.border='2px solid #c53030'; }
+            else{
+                const explainHtml = getExplanationFor(q, sec);
+                if(explainHtml) showFeedback(q, explainHtml, false, true);
+                else showFeedback(q,`Forkert — korrekt svar er ${expected}.`, false);
+                input.style.border='2px solid #c53030';
+            }
         }
 
         function evaluate(){
@@ -604,15 +771,22 @@ TCCR1B = 0b00000001;</pre>
                     // mark chosen-but-wrong red
                     let wrong=false;
                     chosen.forEach(v=>{ if(!expected.has(v)){ wrong=true; const i=sec.querySelector(`input[name="${q}"][value="${v}"]`); if(i) i.parentElement.classList.add('wrong'); }});
-                    if(chosen.length>0 && !wrong && chosen.length === expected.size){ score++; showFeedback(q,'Korrekt', true);} else showFeedback(q, chosen.length===0 ? 'Vælg mindst én.' : 'Forkert — korrekte svar er markeret.', false);
+                    if(chosen.length>0 && !wrong && chosen.length === expected.size){ score++; showFeedback(q,'Korrekt', true);} else {
+                        if(chosen.length===0) showFeedback(q, 'Vælg mindst én.', false);
+                        else {
+                            const explainHtml = getExplanationFor(q, sec);
+                            if(explainHtml) showFeedback(q, explainHtml, false, true);
+                            else showFeedback(q, 'Forkert — korrekte svar er markeret.', false);
+                        }
+                    }
                 } else {
                     // single radio OR text
                     const textInput = sec.querySelector('input[type=text]');
-                    if(textInput){ const val=(textInput.value||'').trim(); if(val === ans){ score++; showFeedback(q,'Korrekt', true); textInput.style.border='2px solid #0b8a3a' } else { showFeedback(q, val?`Forkert — korrekt svar er ${ans}.`:'Skriv venligst et svar.', false); textInput.style.border='2px solid #c53030' } }
+                    if(textInput){ const val=(textInput.value||'').trim(); if(val === ans){ score++; showFeedback(q,'Korrekt', true); textInput.style.border='2px solid #0b8a3a' } else { const explainHtml = getExplanationFor(q, sec); if(explainHtml) showFeedback(q, explainHtml, false, true); else showFeedback(q, val?`Forkert — korrekt svar er ${ans}.`:'Skriv venligst et svar.', false); textInput.style.border='2px solid #c53030' } }
                     else {
                         const selected = sec.querySelector(`input[name="${q}"]:checked`);
                         if(!selected){ showFeedback(q,'Du skal vælge et svar.', false); }
-                        else { if(selected.value === ans){ score++; selected.parentElement.classList.add('correct'); showFeedback(q,'Korrekt', true);} else { selected.parentElement.classList.add('wrong'); const corr = sec.querySelector(`input[name="${q}"][value="${ans}"]`); if(corr) corr.parentElement.classList.add('correct'); showFeedback(q, 'Forkert — korrekt svar er markeret.', false);} }
+                        else { if(selected.value === ans){ score++; selected.parentElement.classList.add('correct'); showFeedback(q,'Korrekt', true);} else { selected.parentElement.classList.add('wrong'); const corr = sec.querySelector(`input[name="${q}"][value="${ans}"]`); if(corr) corr.parentElement.classList.add('correct'); const explainHtml = getExplanationFor(q, sec); if(explainHtml) showFeedback(q, explainHtml, false, true); else showFeedback(q, 'Forkert — korrekt svar er markeret.', false);} }
                     }
                 }
             });
