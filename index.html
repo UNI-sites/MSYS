@@ -491,7 +491,7 @@ TCCR1B = 0b00000001;</pre>
                 <div class="explain" hidden>
                     <p><strong>Forklaring:</strong> For 10‑bit Fast PWM er frekvensen
                     <br><code>f = CPU_clock / (prescaler × 1024)</code>
-                    Hvis CPU_clock halveres, halveres f (f → f/2). Duty‑cycle beregnes fra forholdet OCR/TOP og påvirkes ikke procentvist af clock‑ændringen, så duty forbliver uændret mens frekvensen ændres.</p>
+                    Hvis CPU_clock halveres, halveres f (f → f/2). <br>Duty‑cycle beregnes fra forholdet OCR/TOP og påvirkes ikke procentvist af clock‑ændringen, så duty forbliver uændret mens frekvensen ændres.</p>
                 </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q17">Tjek svar (17)</button></div>
             </section>
@@ -536,7 +536,11 @@ TCCR1B = 0b00000001;</pre>
                 </div>
                 <div class="feedback" data-for="q20"></div>
                 <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> RXC0 i UCSR0A (mask 0b10000000) er 1 når en modtaget karakter er klar i UDR0. At AND'e UCSR0A med denne maske returnerer en ikke‑nul værdi når karakteren er klar — derfor er dette en korrekt testfunktion.</p>
+                    <p><strong>Forklaring:</strong></p>
+                    <p>RXC0‑flaget i registeret <code>UCSR0A</code> indikerer, om UART0 har modtaget en byte klar til aflæsning i <code>UDR0</code>.</p>
+                    <p>Vi tester flaget ved at AND'e registeret med masken <code>0b10000000</code> (RXC0‑bit):
+                    <br><code>if (UCSR0A & 0b10000000) { /* karakter klar */ }</code></p>
+                    <p>Hvis udtrykket er sandt (ikke‑nul), er en karakter klar — derfor returnerer funktionen en værdi forskellig fra 0, når der ligger data i bufferet.</p>
                 </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q20">Tjek svar (20)</button></div>
             </section>
@@ -551,7 +555,7 @@ TCCR1B = 0b00000001;</pre>
                 </div>
                 <div class="feedback" data-for="q21"></div>
                 <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Et frame indeholder 1 start + 8 data + 1 paritet + 2 stop = 12 bits. 12 bits på 2,5 ms → 12/0.0025 = 4800 baud.</p>
+                    <p><strong>Forklaring:</strong> Et frame indeholder 1 start + 8 data + 1 paritet + 2 stop = 12 bits. <br>12 bits på 2,5 ms → 12/0.0025 = 4800 baud.</p>
                 </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q21">Tjek svar (21)</button></div>
             </section>
@@ -566,7 +570,15 @@ TCCR1B = 0b00000001;</pre>
                 </div>
                 <div class="feedback" data-for="q22"></div>
                 <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> ADC'en skal køre med clock mellem ca. 50–200 kHz. Med CPU 16 MHz og prescaler 128 får man ADC_clock ≈ 16 000 000 / 128 = 125 000 Hz, hvilket ligger i intervallet — ADMUX vælges til kanal ADC6 i denne konfiguration.</p>
+                    <p><strong>Forklaring:</strong></p>
+                    <p>ADC'en bør køre med et clock i intervallet ca. <strong>50–200 kHz</strong> for at sikre nøjagtige konverteringer.</p>
+                    <p><strong>Formel</strong>:
+                    <br><code>ADC_clock = CPU_clock / prescaler</code>
+                    For at finde prescaleren isoleres den:
+                    <br><code>prescaler = CPU_clock / ADC_clock</code></p>
+                    <p><strong>Eksempel (valgt ADC_clock ≈ 125 kHz):</strong>
+                    <br><code>prescaler = 16 000 000 / 125 000 = 128</code>
+                    <br>125 kHz ligger i anbefalet interval, så prescaler = <strong>128</strong> er velegnet. <br>Husk også at sætte ADMUX til kanal <code>ADC6</code> for at måle på ADC6.</p>
                 </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q22">Tjek svar (22)</button></div>
             </section>
@@ -581,7 +593,14 @@ TCCR1B = 0b00000001;</pre>
                 </div>
                 <div class="feedback" data-for="q23"></div>
                 <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> ADC‑værdien ≈ round(1023 * (1.21 / 4.0)) ≈ 309 — derfor forventes cirka 309.</p>
+                    <p><strong>Forklaring:</strong></p>
+                    <p>Den generelle relation for en n‑bit ADC er:
+                    <br><code>Vin / Vref = value / (2^n - 1)</code></p>
+                    <p>Isolér value for at finde den digitale værdi:
+                    <br><code>value = (2^n - 1) × Vin / Vref</code></p>
+                    <p>For en 10‑bit ADC (n = 10 → 2^10 − 1 = 1023) og Vin = 1,21 V, Vref = 4,0 V:
+                    <br><code>value = 1023 × 1.21 / 4.0 ≈ 309.46</code>
+                    <br>Den digitale aflæsning bliver derfor cirka <strong>309</strong> (nærmeste heltal).</p>
                 </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q23">Tjek svar (23)</button></div>
             </section>
