@@ -11,599 +11,417 @@
         <p class="intro">Svar på spørgsmålene nedenfor ved hjælp af formularen. Klik på <strong>Tjek svar</strong> for at få feedback.</p>
 
         <form id="quizForm" novalidate>
-            <!-- Question 1: single-choice (radio) -->
+
+            <!-- Spørgsmål 1 -->
             <section class="question" aria-labelledby="q1">
-                <h2 id="q1">1) I et 8-bit register på en Mega2560 gemmes et tal i to-komplement. Binært aflæses: <code>0b11001011</code>. Hvad er tallets værdi i decimalt?</h2>
+                <h2 id="q1">(8 point) Hvordan gemmes det negative tal -35 på 2-komplement form (i et 8 bit system) ?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q1" value="203" required> 203</label>
-                    <label><input type="radio" name="q1" value="-53"> -53</label>
-                    <label><input type="radio" name="q1" value="-75"> -75</label>
-                    <label><input type="radio" name="q1" value="-64"> -64</label>
+                    <label><input type="radio" name="q1" value="0b00100011" required> 0b00100011</label>
+                    <label><input type="radio" name="q1" value="0b11011101"> 0b11011101</label>
+                    <label><input type="radio" name="q1" value="0b11011011"> 0b11011011</label>
+                    <label><input type="radio" name="q1" value="0b11100011"> 0b11100011</label>
                 </div>
                 <div class="feedback" data-for="q1"></div>
-                <!-- Optional inline HTML explanation (hidden until shown). Authors can edit this in HTML. -->
-                <div class="explain" hidden>
-                    <p><strong>Hint:</strong> Konvertering fra to-komplement kan gøres ved at invertere alle bits og derefter lægge 1 til. F.eks. <code>0b11001011</code> inverteres til <code>0b00110100</code>, læg 1 til → <code>0b00110101</code> (53). Da originalen er to-komplement, er tallet -53.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q1">Tjek svar (1)</button></div>
             </section>
 
-            <!-- Question 2: single-choice (radio) - power/clock question -->
+            <!-- Spørgsmål 2 -->
             <section class="question" aria-labelledby="q2">
-                <h2 id="q2">2) En Mega2560 forsynes med en spænding på 5,0 volt og en CPU clockfrekvens på 10 MHz. Hvad vil få Mega2560's strømforbrug til at stige?</h2>
+                <h2 id="q2">(8 point) Hvad gælder lige efter RESET af en Atmel AVR microcontroller ?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q2" value="4V"> Forsyningsspændingen ændres til 4 volt</label>
-                    <label><input type="radio" name="q2" value="8MHz"> CPU clockfrekvensen ændres til 8 MHz</label>
-                    <label><input type="radio" name="q2" value="8MHz_4V"> CPU clockfrekvensen ændres til 8 MHz  og  forsyningsspændingen ændres til 4 volt</label>
-                    <label><input type="radio" name="q2" value="12MHz"> CPU clockfrekvensen ændres til 12 MHz</label>
+                    <label><input type="radio" name="q2" value="opt1" required> Programtælleren er 0, og global interrupt (I-bit i SREG) er aktiveret.</label>
+                    <label><input type="radio" name="q2" value="opt2"> Programtælleren peger på adressen for stack-toppen</label>
+                    <label><input type="radio" name="q2" value="opt3"> Programtælleren peger på den sidste instruktion lige før RESET.</label>
+                    <label><input type="radio" name="q2" value="opt4"> Programtælleren er 0, og alle I/O porte er konfigureret som input.</label>
                 </div>
                 <div class="feedback" data-for="q2"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Strømforbruget i en mikrocontroller stiger typisk både med forsyningsspændingen og med clockfrekvensen. En højere spænding øger den effekt der omsættes i kredsløbet, og en højere clockfrekvens gør, at CPU'en udfører flere instruktioner pr. sekund og derfor bruger mere strøm. I denne opgave er eneste mulighed der øger forbruget (i forhold til 5,0 V / 10 MHz) at øge clockfrekvensen til 12 MHz — at skifte til 4 V ville tværtimod reducere forbruget, og at sænke frekvensen til 8 MHz reducerer også forbruget.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q2">Tjek svar (2)</button></div>
             </section>
 
-            <!-- Question 3: flags (Z and C) -->
+            <!-- Spørgsmål 3 -->
             <section class="question" aria-labelledby="q3">
-                <h2 id="q3">3) Hvad indeholder ZERO-flaget (Z) og CARRY-flaget (C) efter afvikling af disse instruktioner :<pre>LDI R20,100<br>LDI R21,156<br>ADD R20,R21<br>LDI R20,56</pre></h2>
+                <h2 id="q3">(10 point) Hvad indeholder R21 efter afvikling af denne kode:
+                    <pre>LDI R21,21
+DEC R21
+PUSH R21
+LDI R22,22
+ADD R21,R22
+POP R21
+INC R21</pre>
+                    Stack pointeren er på forhånd korrekt initieret.</h2>
                 <div class="options">
-                    <label><input type="radio" name="q3" value="opt1"> Z = 1 og C = 0</label>
-                    <label><input type="radio" name="q3" value="opt2"> Z = 1 og C = 1</label>
-                    <label><input type="radio" name="q3" value="opt3"> Z = 0 og C = 1</label>
-                    <label><input type="radio" name="q3" value="opt4"> Z = 0 og C = 0</label>
+                    <label><input type="radio" name="q3" value="44" required> 44</label>
+                    <label><input type="radio" name="q3" value="22"> 22</label>
+                    <label><input type="radio" name="q3" value="42"> 42</label>
+                    <label><input type="radio" name="q3" value="21"> 21</label>
                 </div>
                 <div class="feedback" data-for="q3"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> ADD R20,R21: 100 + 156 = 256. Et 8‑bit register kan kun holde 0–255, så resultatet ruller over til 0 (256 mod 256 = 0) — derfor sættes Z = 1; fordi summen oversteg 255 sættes også C = 1. LDI R20,56 ændrer registeret, men ikke flagene sat af ADD.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q3">Tjek svar (3)</button></div>
             </section>
 
-            <!-- Question 4: radio -->
+            <!-- Spørgsmål 4 -->
             <section class="question" aria-labelledby="q4">
-                <h2 id="q4">4) Man ønsker at addere to 16 bit tal som vist på figuren (Tal1 = R21:R20, Tal2 = R23:R22). Hvilken metode er korrekt for at få resultatet i R23:R22?</h2>
-                <table border="1" style="border-collapse: collapse;width: 74.7743%;height: 139.583px;"><colgroup><col style="width: 20.7584%;"><col style="width: 10.27%;"><col style="width: 31.4654%;"><col style="width: 6.11827%;"><col style="width: 31.4654%;"></colgroup>
-<tbody>
-<tr style="height: 27.9167px;">
-<td><span style="font-size: 12px;">Bits:</span></td>
-<td style="height: 27.9167px;"></td>
-<td style="height: 27.9167px;text-align: center;"><span style="font-family: 'courier new', courier, sans-serif;font-size: 12px;">15&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8</span></td>
-<td style="height: 27.9167px;"></td>
-<td style="height: 27.9167px;text-align: center;"><span style="font-family: 'courier new', courier, sans-serif;font-size: 12px;">7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0</span></td>
-</tr>
-<tr style="height: 27.9167px;">
-<td>Tal1:</td>
-<td style="height: 27.9167px;"></td>
-<td style="height: 27.9167px;text-align: center;"><span style="font-size: 19px;font-family: 'courier new', courier, sans-serif;">R21</span></td>
-<td style="height: 27.9167px;text-align: center;"></td>
-<td style="height: 27.9167px;text-align: center;"><span style="font-size: 19px;font-family: 'courier new', courier, sans-serif;">R20</span></td>
-</tr>
-<tr style="height: 27.9167px;">
-<td>Tal2:</td>
-<td style="height: 27.9167px;">+</td>
-<td style="height: 27.9167px;text-align: center;"><span style="font-size: 19px;font-family: 'courier new', courier, sans-serif;">R23</span></td>
-<td style="height: 27.9167px;text-align: center;"></td>
-<td style="height: 27.9167px;text-align: center;"><span style="font-size: 19px;font-family: 'courier new', courier, sans-serif;">R22</span></td>
-</tr>
-<tr style="height: 27.9167px;">
-<td></td>
-<td style="height: 27.9167px;"></td>
-<td style="height: 27.9167px;"><hr></td>
-<td style="height: 27.9167px;"></td>
-<td style="height: 27.9167px;"><hr></td>
-</tr>
-<tr style="height: 27.9167px;">
-<td style="text-align: left;">Res:</td>
-<td style="height: 27.9167px;text-align: center;"></td>
-<td style="height: 27.9167px;text-align: center;"><span style="font-family: 'courier new', courier, sans-serif;">R23</span></td>
-<td style="height: 27.9167px;text-align: center;"></td>
-<td style="height: 27.9167px;text-align: center;"><span style="font-family: 'courier new', courier, sans-serif;">R22</span></td>
-</tr>
-</tbody>
-</table>
+                <h2 id="q4">(10 point) Hvilken af de 4 viste måder at skrive en assembly subrutine vil medføre, at programmet "går ned" (eksekverer uforudsigeligt), hvis subrutinen kaldes ?
+                    <br>Stack pointeren er på forhånd korrekt initieret.</h2>
                 <div class="options">
-                    <label><input type="radio" name="q4" value="opt1" required> <div>ADD R20,R22<br>ADC R21,R23</div></label><br>
-                    <label><input type="radio" name="q4" value="opt2"> <div>ADD R22,R20<br>ADC R23,R21</div></label><br>
-                    <label><input type="radio" name="q4" value="opt3"> <div>ADC R20,R22<br>ADD R21,R23</div></label><br>
-                    <label><input type="radio" name="q4" value="opt4"> <div>ADC R22,R20<br>ADD R23,R21</div></label>
+                    <label><input type="radio" name="q4" value="opt1" required> HERE: PUSH R17<br>&nbsp;&nbsp;&nbsp;&nbsp;POP R16<br>&nbsp;&nbsp;&nbsp;&nbsp;RET</label>
+                    <label><input type="radio" name="q4" value="opt2"> HERE: PUSH R16<br>&nbsp;&nbsp;&nbsp;&nbsp;ADD R16,R17<br>&nbsp;&nbsp;&nbsp;&nbsp;RET</label>
+                    <label><input type="radio" name="q4" value="opt3"> HERE: PUSH R16<br>&nbsp;&nbsp;&nbsp;&nbsp;PUSH R17<br>&nbsp;&nbsp;&nbsp;&nbsp;ADD R16,R17<br>&nbsp;&nbsp;&nbsp;&nbsp;POP R18<br>&nbsp;&nbsp;&nbsp;&nbsp;POP R17<br>&nbsp;&nbsp;&nbsp;&nbsp;RET</label>
+                    <label><input type="radio" name="q4" value="opt4"> HERE: PUSH R16<br>&nbsp;&nbsp;&nbsp;&nbsp;ADD R16,R17<br>&nbsp;&nbsp;&nbsp;&nbsp;POP R17<br>&nbsp;&nbsp;&nbsp;&nbsp;RET</label>
                 </div>
                 <div class="feedback" data-for="q4"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Tilføj lavordet først; hvis lavordets sum overstiger 255 opstår en carry som skal med i højordet. Derfor bruges <code>ADD R22,R20</code> efterfulgt af <code>ADC R23,R21</code> (add with carry) for at få korrekt 16‑bit resultat.</p>
-                    <pre>ADD R22,R20
-ADC R23,R21</pre>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q4">Tjek svar (4)</button></div>
             </section>
 
-            <!-- Question 5: delay-comparison question -->
+            <!-- Spørgsmål 5 -->
             <section class="question" aria-labelledby="q5">
-                <h2 id="q5">5) Nedenstående kode afvikles på en Mega2560. Hvilket af følgende delays tager længst tid at eksekvere?</h2>
-                <pre>
-DELAYA:
-    CLR R17
-    CLR R18
-AGAIN: 
-    DEC R17
-    BRNE AGAIN
-    DEC R18
-    BRNE AGAIN
-    RET
-
-
-DELAYB:
-    CLR R17
-    LDI R18, 221
-AGAIN: 
-    DEC R17
-    BRNE AGAIN
-    DEC R18
-    BRNE AGAIN
-    RET
-
-
-DELAYC:
-    CLR R17
-    LDI R19, 10
-A2:    
-    LDI R18, 50
-A1: 
-    DEC R17
-    BRNE A1
-    DEC R18
-    BRNE A1
-    DEC R19
-    BRNE A2
-    RET
-
-
-DELAYD:
-    LDI R19, 60
-A3:  
-    LDI R17, 60
-    LDI R18, 60
-A1: 
-    DEC R17
-    BRNE A1
-A2:
-    DEC R18
-    BRNE A2
-    DEC R19
-    BRNE A3
-    RET
-                </pre>
+                <h2 id="q5">(10 point) Hvor mange CPU clock-cycles tager det en Mega2560 at afvikle denne kode:
+                    <pre>       LDI  R18,10
+OUTER: LDI  R20,20
+INNER: DEC  R20
+       BRNE INNER
+       DEC  R18
+       BRNE OUTER</pre></h2>
                 <div class="options">
-                    <label><input type="radio" name="q5" value="opt1"> DELAYA tager længst tid</label>
-                    <label><input type="radio" name="q5" value="opt2"> DELAYD tager længst tid</label>
-                    <label><input type="radio" name="q5" value="opt3"> DELAYC tager længst tid</label>
-                    <label><input type="radio" name="q5" value="opt4"> DELAYB tager længst tid</label>
+                    <label><input type="radio" name="q5" value="630" required> 630</label>
+                    <label><input type="radio" name="q5" value="567"> 567</label>
+                    <label><input type="radio" name="q5" value="200"> 200</label>
+                    <label><input type="radio" name="q5" value="420"> 420</label>
                 </div>
                 <div class="feedback" data-for="q5"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> DELAYC har indlejrede løkker (fx R19 = 10 og R18 = 50) så det ydre og indre loop multiplicerer antal iterationer. Det giver mange flere samlede instruktioner før RET end de andre delays, og på grund af multipliceret iterationsantal tager DELAYC længst tid. <pre>
-DELAYC
-assembly
-CLR R17 ;                       1 cycle
-LDI R19, 10 ;                   1 cycle
-A2:
- LDI R18, 50 ;                  1 cycle                 × 10
-A1:
- DEC R17 ;                      1 cycle  × 256  × 50    × 10
- BRNE A1 ;                      2 cycles × 256  × 50    × 10
-           da BRNE ikke hopper -1 cycle         × 50    × 10    
- DEC R18 ;                      1 cycle         × 50    × 10
- BRNE A1 ;                      2 cycles        × 50    × 10
-           da BRNE ikke hopper -1 cycle                 × 10
- DEC R19 ;                      1 cycle                 × 10
- BRNE A2 ;                      2 cycles                × 10
-           da BRNE ikke hopper -1 cycle                 × 10
-RET ;                           4 cycle
-
-
-DELAYA:
-Kort og simpelt resume:
-- DELAYA ≈ 197.125 cycles
-- DELAYB ≈ 170.175 cycles
-- DELAYC ≈ 385.525 cycles  ← længst (indlejrede løkker)
-- DELAYD ≈ 21.784 cycles
-
-Konklusion: DELAYC tager klart længst tid på grund af de indlejrede loops.
-
-Kompakt udregning for DELAYC:
-1 + 1 + ((1 + (1 + 2) * 256 - 1 + 1 + 2) * 50 - 1 + 1 + 2) * 10 - 1 + 4 = 385,525
-
-                    </pre></p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q5">Tjek svar (5)</button></div>
             </section>
 
-            <!-- Questions 6-23: add all with per-question check buttons -->
-
+            <!-- Spørgsmål 6 -->
             <section class="question" aria-labelledby="q6">
-                <h2 id="q6">6) Hvor lang tid tager det en Mega2560, der har en CPU clockfrekvens på 16 MHz, at afvikle denne kode:
-                    <pre>
-      LDI R16,1oo
-NEXT: INC R16
-      DEC R16
-      DEC R16
-      BRNE NEXT
-                    </pre>
+                <h2 id="q6">(12 point) Dette assembly-program afvikles på et "Arduino Mega2560" board med påmonteret "Mega2560 I/O Shield" (kendt fra øvelserne):
+                    <pre>      CLR  R20
+      LDI  R21,0xFF 
+      OUT  DDRA,R20
+      OUT  DDRB,R21
+IGEN: SBIS PINA,1
+      OUT  PORTB,R21
+      SBIS PINA,0
+      OUT  PORTB,R20
+      JMP  IGEN</pre>
+                    Hvordan virker programmet ?
+                    <br>Husk:
+                    <ul>
+                        <li>Signalet fra en trykknap går LAVT, når der trykkes på den.</li>
+                        <li>En lysdiode tændes, når signalet til den går HØJT.</li>
+                    </ul>
                 </h2>
                 <div class="options">
-                    <label><input type="radio" name="q6" value="15.625"> 15,625 mikrosekunder</label>
-                    <label><input type="radio" name="q6" value="31.25"> 31,25 mikrosekunder</label>
-                    <label><input type="radio" name="q6" value="18.75"> 18,75 mikrosekunder</label>
-                    <label><input type="radio" name="q6" value="37.5"> 37,50 mikrosekunder</label>
+                    <label><input type="radio" name="q6" value="opt1" required> Når der trykkes på trykknap SW1, tænder alle lysdioder. Når der trykkes på trykknap SW0, slukker alle lysdioder</label>
+                    <label><input type="radio" name="q6" value="opt2"> Når der trykkes på trykknap SW1 eller trykknap SW0, slukker alle lysdioder</label>
+                    <label><input type="radio" name="q6" value="opt3"> Når der trykkes på trykknap SW1 eller trykknap SW0, tænder alle lysdioder</label>
+                    <label><input type="radio" name="q6" value="opt4"> Når der trykkes på trykknap SW1, slukker alle lysdioder. Når der trykkes på trykknap SW0, tænder alle lysdioder</label>
                 </div>
                 <div class="feedback" data-for="q6"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Startværdi er 100 og hver gennemkørsel reducerer tællerværdien effektivt med 1, så der køres 100 iterationer. Antag instruktionscyklusser ≈ INC(1) + DEC(1) + DEC(1) + BRNE(taget=2) = 5 cyklusser/iteration → 100×5 / 16 000 000 = 31,25 µs.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q6">Tjek svar (6)</button></div>
             </section>
 
+            <!-- Spørgsmål 7 -->
             <section class="question" aria-labelledby="q7">
-                <h2 id="q7">7) Hvad indeholder R18 efter eksekveringen af denne kode:
-                    <pre>
-    LDI  R18, 255
-    INC  R18
-                    </pre></h2>
+                <h2 id="q7">(10 point) En Mega2560 har en CPU clockfrekvens på 4 MHz.
+                    <br>Hvor lang tid tager det at afvikle denne kode:
+                    <pre>      CLR R30
+HERE: DEC R30
+      NOP
+      BRNE HERE</pre></h2>
                 <div class="options">
-                    <label><input type="radio" name="q7" value="1"> 1</label>
-                    <label><input type="radio" name="q7" value="syntax"> Syntax fejl, da R18 ikke kan indeholde mere end 255.</label>
-                    <label><input type="radio" name="q7" value="0"> 0</label>
-                    <label><input type="radio" name="q7" value="256"> 256</label>
+                    <label><input type="radio" name="q7" value="768us" required> 768 mikrosekunder</label>
+                    <label><input type="radio" name="q7" value="192us"> 192 mikrosekunder</label>
+                    <label><input type="radio" name="q7" value="1024us"> 1024 mikrosekunder</label>
+                    <label><input type="radio" name="q7" value="256us"> 256 mikrosekunder</label>
                 </div>
                 <div class="feedback" data-for="q7"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> R18 sættes til 255. Når du inkrementerer 255 gives 256, men 8‑bit register ruller over (256 mod 256 = 0) — derfor ender R18 med værdien <strong>0</strong>.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q7">Tjek svar (7)</button></div>
             </section>
 
+            <!-- Spørgsmål 8 -->
             <section class="question" aria-labelledby="q8">
-                <h2 id="q8">8) Følgende statement oversættes af en C compiler til Atmel AVR assembly kode: <code>PORTB = ~ (PINA - 1);</code> Hvilken assembly kode er korrekt ?</h2>
+                <h2 id="q8">(10 point) Følgende C kode statement oversættes af en C compiler til Atmel AVR assembly kode:
+                    <pre>PORTB =  (~PINA) | 97;</pre>
+                    Hvilken assembly kode er korrekt</h2>
                 <div class="options">
-                    <label><input type="radio" name="q8" value="opt1"> <div>IN  R24,PINA<br>DEC R24<br>COM R24<br>OUT PORTB,R24</div></label><br>
-                    <label><input type="radio" name="q8" value="opt2"> <div>OUT PINA,R24<br>DEC R24<br>COM R24<br>IN  R24,PORTB</div></label><br>
-                    <label><input type="radio" name="q8" value="opt3"> <div>OUT PINA,R24<br>COM R24<br>DEC R24<br>IN  R24,PORTB</div></label><br>
-                    <label><input type="radio" name="q8" value="opt4"> <div>IN  R24,PINA<br>COM R24<br>DEC R24<br>OUT PORTB,R24</div></label>
+                    <label><input type="radio" name="q8" value="opt1" required> IN  R24, PINA<br>COM R24<br>LDI R25, 97<br>OR  R24, R25<br>OUT PORTB, R24</label>
+                    <label><input type="radio" name="q8" value="opt2"> LDI R24, 97<br>IN  R25, PINA<br>COM R24<br>OR  R24, R25<br>OUT PORTB, R24</label>
+                    <label><input type="radio" name="q8" value="opt3"> IN  R24, PINA<br>LDI R25, 97<br>COM R25<br>OR  R24, R25<br>OUT PORTB, R24</label>
+                    <label><input type="radio" name="q8" value="opt4"> IN  R24, PINA<br>COM R24<br>LDI R25, 97<br>ADD R24, R25<br>OUT PORTB, R24</label>
                 </div>
                 <div class="feedback" data-for="q8"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Rækkefølgen er: <pre>
-læs fra PINA; 
-træk 1 fra (DEC); 
-komplementér bittene (COM); 
-skriv til PORTB. </pre> Det svarer direkte til <code>PORTB = ~(PINA - 1);</code>, så resultatet bliver det bitvise complement af (PINA−1).</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q8">Tjek svar (8)</button></div>
             </section>
 
+            <!-- Spørgsmål 9 -->
             <section class="question" aria-labelledby="q9">
-                <h2 id="q9">9) Hvad gælder for maskinkoden dannet af C compileren i disse to eksempler?<pre>
-eksempel 1 : 
-unsigned char x;
-x = x & 0b00001000;
-
-
-eksempel 2 : 
-unsigned char x;
-x &= 0b00001000;</pre></h2>
+                <h2 id="q9">(11 point) Hvilket C statement svarer til følgende Atmel AVR assembly kode:
+                    <pre>IN  R25,PINA
+IN  R24,PINB
+AND R24,R25
+DEC R24
+OUT PORTC,R24</pre></h2>
                 <div class="options">
-                    <label><input type="radio" name="q9" value="opt1"> Maskinkoden for eksempel 2 vil afvikles hurtigst</label>
-                    <label><input type="radio" name="q9" value="opt2"> Maskinkoden for eksempel 2 vil fylde mindst i hukommelsen</label>
-                    <label><input type="radio" name="q9" value="opt3"> Maskinkoden vil være ens i de to eksempler</label>
-                    <label><input type="radio" name="q9" value="opt4"> Maskinkoden for eksempel 1 vil afvikles hurtigst</label>
+                    <label><input type="radio" name="q9" value="opt1" required> PORTC = PINA & (PINB - 1)</label>
+                    <label><input type="radio" name="q9" value="opt2"> PORTC = (PINB & PINA) - 1;</label>
+                    <label><input type="radio" name="q9" value="opt3"> PORTC = (PINB & PINA) + 1;</label>
+                    <label><input type="radio" name="q9" value="opt4"> PORTC = PINA & (PINB - 1)</label>
                 </div>
                 <div class="feedback" data-for="q9"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Kompilatoren omsætter begge udtryk til en bitwise AND af registeret med konstantmasken, så den generer typisk samme maskinkode. Forskellen er syntaktisk i koden, ikke funktionelt i det resulterende program — begge gør x ∧ mask.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q9">Tjek svar (9)</button></div>
             </section>
 
+            <!-- Spørgsmål 10 -->
             <section class="question" aria-labelledby="q10">
-                <h2 id="q10">10) Hvilken kode inverterer (toggler) lysdioden LED2 uden at ændre andre lysdioders tilstand når PB er udgange?</h2>
+                <h2 id="q10">(9 point) På et "Arduino Mega2560 board" med påmonteret "Mega250 I/O shield", er de 8 lysdioder (LED7 - LED0) forbundet til Mega2560's PB ben.
+                    <br>Hvilken kode tænder lysdioden LED4 og slukker alle de andre lysdioder</h2>
                 <div class="options">
-                    <label><input type="radio" name="q10" value="opt1"> PORTB = PINB & 0b00000100;</label>
-                    <label><input type="radio" name="q10" value="opt2"> PORTB = PINB ^ 0b11111011;</label>
-                    <label><input type="radio" name="q10" value="opt3"> PORTB = PINB & 0b11111011;</label>
-                    <label><input type="radio" name="q10" value="opt4"> PORTB = PINB ^ 0b00000100;</label>
+                    <label><input type="radio" name="q10" value="opt1" required> DDRB  = 0b11111111; <br>PORTB = 0b11101111</label>
+                    <label><input type="radio" name="q10" value="opt2"> DDRB  = 0b00000000; <br>PORTB = 0b11101111</label>
+                    <label><input type="radio" name="q10" value="opt3"> DDRB  = 0b11111111; <br>PORTB = 0b00010000</label>
+                    <label><input type="radio" name="q10" value="opt4"> DDRB  = 0b00000000; <br>PORTB = 0b00010000</label>
                 </div>
                 <div class="feedback" data-for="q10"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> XOR (^) med masken <code>0b00000100</code> inverterer kun den enkelte bit som masken har sat (LED2). De andre bits forbliver uændrede, så kun LED2 toggles ved hvert kald.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q10">Tjek svar (10)</button></div>
             </section>
 
+            <!-- Spørgsmål 11 -->
             <section class="question" aria-labelledby="q11">
-                <h2 id="q11">11) Et program skal aflæse binære værdier på PA og PB (inputs) og udskrive summen til PC (udgange). Hvilken kode er korrekt?</h2>
-                
-                    <label><input type="radio" name="q11" value="opt1"> <pre style="margin-top: 0;">
-DDRA = 0xFF;
-DDRB = 0xFF;
-DDRC = 0;
-while (1)
-{
-    PORTC = PORTA + PORTB;
-}</pre></label><br>
-
-                    <label><input type="radio" name="q11" value="opt2"> <pre style="margin-top: 0;">
-DDRA = 0xFF;
-DDRB = 0xFF;
-DDRC = 0;
-while (1)
-{
-    PORTC = PORTA + PORTB;
-}</pre></label><br>
-
-                    <label><input type="radio" name="q11" value="opt3"> <pre style="margin-top: 0;">
-DDRA = 0;
-DDRB = 0;
-DDRC = 0xFF;
-while (1)
-{
-    PORTC = PINA + PINB;
-}</pre></label><br>
-
-                    <label><input type="radio" name="q11" value="opt4"> <pre style="margin-top: 0;">
-DDRA = 0;
-DDRB = 0;
-DDRC = 0xFF;
-while (1)
-{
-    PINC = PORTA + PORTB;
-}</pre></label>
+                <h2 id="q11">(11 point) En Mega2560 har en CPU clockfrekvens på 8 MHz.
+                    <br>Vi sætter timer 4 i "Normal Mode".
+                    <br>Hvad er den længste tid, som man kan få mellem to efterfølgende timer 4 overflows ?</h2>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="32.80ms" required> 32,80 millisekunder</label>
+                    <label><input type="radio" name="q11" value="2.097s"> 2,097 sekunder</label>
+                    <label><input type="radio" name="q11" value="8.39s"> 8,39 sekunder</label>
+                    <label><input type="radio" name="q11" value="0.256ms"> 0,256 millisekunder</label>
                 </div>
                 <div class="feedback" data-for="q11"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> For at læse bits fra porte skal de konfigureres som inputs <br>(DDRA = 0, DDRB = 0); <br>for at skrive til en port skal dens DDR være output <br>(DDRC = 0xFF). <br>Derfor læser man data med <code>PINA</code>/<code>PINB</code> og skriver summen til <code>PORTC</code> — det sikrer korrekt retning af data.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q11">Tjek svar (11)</button></div>
             </section>
 
+            <!-- Spørgsmål 12 -->
             <section class="question" aria-labelledby="q12">
-                <h2 id="q12">12)<br> En Mega2560 har en CPU clockfrekvens på 16 MHz.<br>
-Vi sætter timer 2 i "Normal Mode".<br>
-Hvad er den korteste tid, som vi vil kunne få mellem to efterfølgende timer 2 overflows?</h2>
-                    <span>Der skrives ikke til registeret TCNT2 fra programmet.<br> <strong>Han har lavet fejl i quizzen ved denne opgave</strong></span><br><br>
+                <h2 id="q12">(12 point) Timer 1 anvendes i Normal Mode, og timer 1's clock prescaler er sat til 1024.
+                    <br>Mega2560's clock frekvens er 16 MHz.
+                    <br>Hvilken værdi skal der skrives til TCNT1, når der ønskes en forsinkelse på 2 sekunder fra der skrives til TCNT1, og indtil timer 1 laver overflow ?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q12" value="16us"> 16 mikrosekunder</label>
-                    <label><input type="radio" name="q12" value="16ms"> ca. 16 millisekunder</label>
-                    <label><input type="radio" name="q12" value="64us"> 64 mikrosekunder</label>
-                    <label><input type="radio" name="q12" value="4.1ms"> ca. 4,1 millisekunder</label>
+                    <label><input type="radio" name="q12" value="15625" required> TCNT1 = 15625;</label>
+                    <label><input type="radio" name="q12" value="65536-31250"> TCNT1 = (65536-31250);</label>
+                    <label><input type="radio" name="q12" value="65536-15625"> TCNT1 = (65536-15625);</label>
+                    <label><input type="radio" name="q12" value="31250"> TCNT1 = 31250;</label>
                 </div>
                 <div class="feedback" data-for="q12"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Timer2 er 8‑bit (0–255), så overflow sker efter 256 cycles. <br>Uden prescaler gør at hver cycle tager 1/CPU eller 1/16MHz. <br> Dette ganges med antal cyles for overflow → 256/16 000 000 = <strong>16 µs</strong>, <br>Dette er tiden fra 0 til overflow og da et overflow resultere i 0 er dette også tiden mellem to overflows.<br> <strong>Dermed er svaret 16 mikrosekunder.</strong></p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q12">Tjek svar (12)</button></div>
             </section>
 
+            <!-- Spørgsmål 13 -->
             <section class="question" aria-labelledby="q13">
-                <h2 id="q13">13) En Mega2560's clockfrekvens er 8 MHz.<br>Hvordan initieres timer 2 til "Normal Mode", så vi får timer 2 overflow 31250 gange hvert sekund?</h2>
+                <h2 id="q13">(10 point) Mega2560's timer 1 er i CTC mode (mode 4), og CPU clockfrekvensen er 16 MHz. Timer 1's clock prescaler er 64.
+                    <br>Hvilken værdi skal skrives til register OCR1A, for at generere et signal på benet OC1A, der har en frekvens på 8 Hz</h2>
                 <div class="options">
-                    <label><input type="radio" name="q13" value="opt1"> <br>TCCR2A = 0b00000000; <br>TCCR2B = 0b00000111;</label><br>
-                    <label><input type="radio" name="q13" value="opt2"> <br>TCCR2A = 0b00000000; <br>TCCR2B = 0b00000001;</label><br>
-                    <label><input type="radio" name="q13" value="opt3"> <br>TCCR2A = 0b00000000; <br>TCCR2B = 0b00000011;</label><br>
-                    <label><input type="radio" name="q13" value="opt4"> <br>TCCR2A = 0b00000000; <br>TCCR2B = 0b00000010</label>
+                    <label><input type="radio" name="q13" value="7824" required> OCR1A = 7824;</label>
+                    <label><input type="radio" name="q13" value="62499"> OCR1A = 62499;</label>
+                    <label><input type="radio" name="q13" value="15624"> OCR1A = 15624;</label>
+                    <label><input type="radio" name="q13" value="31248"> OCR1A = 31248;</label>
                 </div>
                 <div class="feedback" data-for="q13"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> En 8‑bit timer tæller CPU‑cycles (efter prescaler) fra 0 til 255 — ved 256 tællinger sker overflow. Generel formel for overflow‑rate er:
-                    <br><code>overflow_rate = CPU_clock / (prescaler × 256)</code>
-                    Hvis du i stedet vil løse for prescaler isolerer du den i formlen:
-                    <br><code>prescaler = CPU_clock / (overflow_rate × 256)</code>
-                    Brug nu CPU_clock = 8 000 000 Hz og ønsket overflow_rate = 31 250/s:
-                    <br><code>prescaler = 8 000 000 / (31 250 × 256) = 8 000 000 / 8 000 000 = 1</code>
-                    Altså er den nødvendige prescaler præcis <strong>1</strong>. (I praksis vælger man fra de tilgængelige prescaler‑værdier som f.eks. 1, 8, 32, 64, 128, 256, 1024.)</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q13">Tjek svar (13)</button></div>
             </section>
 
+            <!-- Spørgsmål 14 -->
             <section class="question" aria-labelledby="q14">
-                <h2 id="q14">14) En Mega2560's timer 0 ønskes anvendt i CTC mode, sådan at vi på benet OC0A får et firkantsignal med en frekvens på 8 kHz.<br>CPU clockfrekvensen er 16 MHz.<br>Timer 0 er initieret på denne måde:</h2>
-                <pre>TCCR0A = 0b01000010;
-TCCR0B = 0b00000010;</pre>
-                <h3>Hvilken værdi skal skrives til OCR0A?</h3>
+                <h2 id="q14">(10 point) Mega2560's timer 1 er i CTC mode (mode 4), og timer 1's clock-prescaler er sat til 8.
+                    <br>Registeret OCR1A indeholder tallet 999, og på benet OC1A måles et signal med en frekvens på 250 Hz.
+                    <br>Hvad er Mega2560's CPU clockfrekvens</h2>
                 <div class="options">
-                    <label><input type="radio" name="q14" value="39"> OCR0A = 39</label>
-                    <label><input type="radio" name="q14" value="249"> OCR0A = 249</label>
-                    <label><input type="radio" name="q14" value="124"> OCR0A = 124</label>
-                    <label><input type="radio" name="q14" value="199"> OCR0A = 199</label>
+                    <label><input type="radio" name="q14" value="2MHz" required> 2 MHz</label>
+                    <label><input type="radio" name="q14" value="16MHz"> 16 MHz</label>
+                    <label><input type="radio" name="q14" value="8MHz"> 8 MHz</label>
+                    <label><input type="radio" name="q14" value="4MHz"> 4 MHz</label>
                 </div>
                 <div class="feedback" data-for="q14"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> I CTC toggle‑mode er relationen mellem clock, prescaler og OCR0A:
-                    <br><code>f = clock / (2 × N × (OCR0A + 1))</code>
-                    Hvis vi isolerer OCR0A algebraisk får vi:
-                    <br><code>OCR0A + 1 = clock / (2 × N × f)</code>
-                    <br><code>OCR0A = (clock / (2 × N × f)) − 1</code>
-                    Indsæt clock = 16 000 000, N = 8 og f = 8000:
-                    <br><code>OCR0A = (16 000 000 / (2 × 8 × 8000)) − 1 = 125 − 1 = 124</code>
-                    Derfor er OCR0A = <strong>124</strong> den rigtige værdi for ≈8 kHz på OC0A.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q14">Tjek svar (14)</button></div>
             </section>
 
+            <!-- Spørgsmål 15 -->
             <section class="question" aria-labelledby="q15">
-                <h2 id="q15">15) Mega2560's Timer 2 skal anvendes i CTC mode til at lave et firkantsignal på benet OC2A med en frekvens på 300 Hz.<br>CPU clockfrekvensen er 3,6864 MHz.</h2>
-                <pre>Timer 2 initieres som:</pre>
+                <h2 id="q15">(10 point) Mega2560's timer 2 er initieret til "Fast PWM mode" (mode 3).
+                    <br>Waveform generatoren er sat til: "Set OC2A on Compare Match, clear OC2A at BOTTOM":
+                    <br>Hvad er PWM signalets duty cycle på benet OC2A, når registeret OCR2A = 64 ?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q15" value="opt1"> <br>TCCR2A = 0b01000010;<br>TCCR2B = 0b00000011;<br>OCR2A = 191;</label><br>
-                    <label><input type="radio" name="q15" value="opt2"> <br>TCCR2A = 0b01000010;<br>TCCR2B = 0b00000001;<br>OCR2A = 95;</label><br>
-                    <label><input type="radio" name="q15" value="opt3"> <br>TCCR2A = 0b01000010;<br>TCCR2B = 0b00000011;<br>OCR2A = 95;</label><br>
-                    <label><input type="radio" name="q15" value="opt4"> <br>TCCR2A = 0b01000010;<br>TCCR2B = 0b00000001;<br>OCR2A = 191;</label>
+                    <label><input type="radio" name="q15" value="75%" required> Cirka 75%</label>
+                    <label><input type="radio" name="q15" value="10%"> Cirka 10%</label>
+                    <label><input type="radio" name="q15" value="50%"> Cirka 50%</label>
+                    <label><input type="radio" name="q15" value="25%"> Cirka 25%</label>
                 </div>
                 <div class="feedback" data-for="q15"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> I CTC toggle‑mode gælder
-                    <br><code>f = clock / (2 × N × (OCR2A + 1))</code>
-                    Løs algebraisk for OCR2A:
-                    <br><code>OCR2A + 1 = clock / (2 × N × f)</code>
-                    <br><code>OCR2A = (clock / (2 × N × f)) − 1</code>
-                    Her må der gættes en passende prescaler N ud fra mulighederne. Vi prøver N = 32:
-                    <br>
-                    Indsæt clock = 3 686 400, N = 32 og f = 300 Hz:
-                    <br><code>OCR2A = (3 686 400 / (2 × 32 × 300)) − 1 = 192 − 1 = 191</code>
-                    Så OCR2A = <strong>191</strong> giver ≈300 Hz.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q15">Tjek svar (15)</button></div>
             </section>
 
+            <!-- Spørgsmål 16 -->
             <section class="question" aria-labelledby="q16">
-                <h2 id="q16">16) Mega2560's timer 1 er initieret sådan:<br><pre>DDRB = 0xFF;
-TCCR1A = 0b00110011;
-TCCR1B = 0b00000001;</pre>
-                Hvilken værdi skal herefter skrives til registeret OCR1B for på benet OC1B at få et PWM signal med cirka 50% duty cycle?</h2>
+                <h2 id="q16">(11 point) En Mega2560's Timer 1 er initieret til PWM mode på flg. måde:
+                    <pre>TCCR1A = 0b11000011;
+TCCR1B = 0b00000011;
+OCR1A = 255;
+CPU clockfrekvensen er 16 MHz.
+
+Hvilken frekvens har PWM-signalet ?</pre></h2>
                 <div class="options">
-                    <label><input type="radio" name="q16" value="1024"> OCR1B = 1024</label>
-                    <label><input type="radio" name="q16" value="128"> OCR1B = 128</label>
-                    <label><input type="radio" name="q16" value="512"> OCR1B = 512</label>
-                    <label><input type="radio" name="q16" value="256"> OCR1B = 256</label>
+                    <label><input type="radio" name="q16" value="122Hz" required> Cirka 122 Hz</label>
+                    <label><input type="radio" name="q16" value="488Hz"> Cirka 488 Hz</label>
+                    <label><input type="radio" name="q16" value="977Hz"> Cirka 977 Hz</label>
+                    <label><input type="radio" name="q16" value="244Hz"> Cirka 244 Hz</label>
                 </div>
                 <div class="feedback" data-for="q16"></div>
                 <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> I 10‑bit Fast PWM er TOP = 1023. Forbindelsen mellem duty og compare‑værdi er:
-                    <br><code>OCR1B = duty_fraction × (TOP)</code>
-                    For 50% duty: <code>OCR1B = 0.5 × 1023 ≈ 511.5</code> → afrundet <strong>512</strong>, derfor OCR1B = 512 giver ~50% duty.</p>
+                    <h3>Forklaring: PWM-beregning for Timer1</h3>
+                    <p><strong>Antagelser:</strong> <code>TCCR1A = 0b11000011</code>, <code>TCCR1B = 0b00000011</code>, <code>OCR1A = 255</code>, <code>f_CPU = 16 MHz</code>.</p>
+                    <p><strong>Trin 1 — WGM:</strong> WGM11=1, WGM10=1, WGM13=0, WGM12=0 → Mode 3 = <em>Phase Correct PWM, 10-bit</em> → <code>TOP = 1023</code>.</p>
+                    <p><strong>Trin 2 — Prescaler:</strong> CS12..CS10 = <code>0b011</code> → <code>N = 64</code>.</p>
+                    <p><strong>Trin 3 — Frekvens:</strong> For Phase‑Correct PWM gælder<br><code>f_PWM = f_CPU / (2 · N · TOP)</code><br>
+                    Indsæt værdier: <code>f = 16 000 000 / (2 · 64 · 1023) ≈ 122.19 Hz</code>.</p>
+                    <p><strong>Trin 4 — Duty:</strong> <code>OCR1A = 255</code>. Eftersom <code>COM1A1:0 = 0b11</code> er output <em>inverting</em>, derfor
+                    <code>Duty = 1 − (OCR1A / TOP) ≈ 1 − 255/1023 ≈ 0.75 (≈75%)</code>. For non‑inverting sæt <code>COM1A1:0 = 0b10</code>.</p>
                 </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q16">Tjek svar (16)</button></div>
             </section>
 
+            <!-- Spørgsmål 17 -->
             <section class="question" aria-labelledby="q17">
-                <h2 id="q17">17) En Mega2560's timer 1 er initieret til "Fast PWM, 10 bit", sådan at der på benet OC1A genereres et PWM signal med en bestemt frekvens og en bestemt duty cycle.</h2>
-                <p>Hvad sker der med PWM-signalet, hvis vi ændrer CPU clockfrekvensen fra 16 MHz til 8 MHz?</p>
-                <figure class="q-figure">
-                    <img class="q-image" src="https://brightspace.au.dk/content/enforced/183538-LR50190/csfiles/home_dir/PWM(1).JPG" alt="PWM illustration for Q17 (see course Brightspace)">
-                    <figcaption>Figur: PWM-eksempel (kilde: Brightspace). Hvis billedet ikke indlæses, kan Brightspace kræve login — download billedet og brug en lokal sti i src.</figcaption>
-                </figure>
+                <h2 id="q17">(9 point) Antag, at Mega2560 interrupt er enablet (både globalt og "lokalt") for Timer 1 overflow og for Timer 2 overflow.
+                    <br>Nu laver Timer 1 overflow samtidig med, at Timer 2 laver overflow.
+                    <br>Hvad sker der ?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q17" value="opt1"> Frekvensen halveres. Duty cycle halveres.</label>
-                    <label><input type="radio" name="q17" value="opt2"> Frekvensen er uændret. Duty cycle er uændret.</label>
-                    <label><input type="radio" name="q17" value="opt3"> Frekvensen er uændret. Duty cycle halveres.</label>
-                    <label><input type="radio" name="q17" value="opt4"> Frekvensen halveres. Duty cycle er uændret.</label>
+                    <label><input type="radio" name="q17" value="opt1" required> Interrupt servicerutinen for Timer 1 overflow udføres først, og herefter interrupt servicerutinen for Timer 2 overflow.</label>
+                    <label><input type="radio" name="q17" value="opt2"> Interrupt servicerutinen for Timer 2 overflow udføres først, og herefter interrupt servicerutinen for Timer 1 overflow.</label>
+                    <label><input type="radio" name="q17" value="opt3"> Kun interrupt servicerutine for Timer 1 udføres.</label>
+                    <label><input type="radio" name="q17" value="opt4"> Interrupt servicerutinen for Timer 1 overflow udføres samtidigt med interrupt servicerutinen for Timer 2 overflow udføres.</label>
                 </div>
                 <div class="feedback" data-for="q17"></div>
                 <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> For 10‑bit Fast PWM er frekvensen
-                    <br><code>f = CPU_clock / (prescaler × 1024)</code>
-                    Hvis CPU_clock halveres, halveres f (f → f/2). <br>Duty‑cycle beregnes fra forholdet OCR/TOP og påvirkes ikke procentvist af clock‑ændringen, så duty forbliver uændret mens frekvensen ændres.</p>
+                    <p><strong>Forklaring:</strong> På ATmega2560 har hvert interrupt en position i interrupt‑vektortabellen; interrupt med lavere vektoradresse har højere prioritet. På ATmega2560 ligger Timer2 overflow‑vektoren før Timer1 overflow‑vektoren, derfor bliver Timer2 overflow ISR udført først, efterfulgt af Timer1 ISR.</p>
                 </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q17">Tjek svar (17)</button></div>
             </section>
 
+            <!-- Spørgsmål 18 -->
             <section class="question" aria-labelledby="q18">
-                <h2 id="q18">18) Vi ønsker at enable Mega2560's eksterne interrupt INT0 (de øvrige interrupts skal være disabled).<br>Desuden skal INT0 trigge på "falling edge".</h2>
+                <h2 id="q18">(8 point) Vi ønsker at nulstille interrupt-flaget for ekstern interrupt INT7 i Mega2560.
+                    <br>Hvilken metode er korrekt ?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q18" value="opt1"> <br>EIMSK = 0b10000000;<br>EICRA = 0b00000000;<br>EICRB = 0b00000011;</label><br>
-                    <label><input type="radio" name="q18" value="opt2"> <br>EIMSK = 0b10000000;<br>EICRA = 0b00000010;<br>EICRB = 0b00000000;</label><br>
-                    <label><input type="radio" name="q18" value="opt3"> <br>EIMSK = 0b00000001;<br>EICRA = 0b00000010;<br>EICRB = 0b00000000;</label><br>
-                    <label><input type="radio" name="q18" value="opt4"> <br>EIMSK = 0b00000001;<br>EICRA = 0b00000000;<br>EICRB = 0b00000011;</label>
+                    <label><input type="radio" name="q18" value="opt1" required> EIFR &= 0b01111111;</label>
+                    <label><input type="radio" name="q18" value="opt2"> EIFR = 1;</label>
+                    <label><input type="radio" name="q18" value="opt3"> EIFR = 0b10000000;</label>
+                    <label><input type="radio" name="q18" value="opt4"> EIFR = 0;</label>
                 </div>
                 <div class="feedback" data-for="q18"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Aktivér INT0‑bit i EIMSK for at slå interruptet til, og sæt i EICRA ISC01=1 og ISC00=0 (mønster 10 = falling edge) for at konfigurere faldende flanketrigger. Sørg for, at andre interrupt‑enable‑bits forbliver 0 hvis de skal være disabled.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q18">Tjek svar (18)</button></div>
             </section>
 
+            <!-- Spørgsmål 19 -->
             <section class="question" aria-labelledby="q19">
-                <h2 id="q19">19) Hvordan enables Timer5 overflow interrupts for Mega2560 ?</h2>
+                <h2 id="q19">(10 point) En UART er initieret til:
+                    <br>BAUD rate = 4800 bit/s
+                    <br>8 databits
+                    <br>Ulige paritet
+                    <br>2 stopbits
+                    <br>Hvad er den korteste tid, det vil tage at sende 25 karakterer (f.eks. en streng på 25 tegn) ?
+                    <br>Husk, at asynkron kommunikation altid begynder med 1 startbit.</h2>
                 <div class="options">
-                    <label><input type="radio" name="q19" value="opt1"> <br>TIMSK |= 0b00000001;<br>sei();</label><br>
-                    <label><input type="radio" name="q19" value="opt2"> <br>TIMSK5 |= 0b00100000;<br>sei();</label><br>
-                    <label><input type="radio" name="q19" value="opt3"> <br>TIMSK5 |= 0b00000001;<br>sei();</label><br>
-                    <label><input type="radio" name="q19" value="opt4"> <br>TIMSK &= 0b00000001;<br>sei();</label>
+                    <label><input type="radio" name="q19" value="52.1ms" required> 52,1 millisekunder</label>
+                    <label><input type="radio" name="q19" value="62.5ms"> 62,5 millisekunder</label>
+                    <label><input type="radio" name="q19" value="57.3ms"> 57,3 millisekunder</label>
+                    <label><input type="radio" name="q19" value="46.9ms"> 46,9 millisekunder</label>
                 </div>
                 <div class="feedback" data-for="q19"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Sæt TOIE5‑bitten i TIMSK5 (Timer5 Overflow Interrupt Enable — ofte bit 0) for at aktivere overflow‑interruptet. Husk at aktivere globale interrupts (fx <code>sei()</code>) så ISR'en faktisk kan køres.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q19">Tjek svar (19)</button></div>
             </section>
 
+            <!-- Spørgsmål 20 -->
             <section class="question" aria-labelledby="q20">
-                <h2 id="q20">20) Vi ønsker at skrive en funktion der returnerer en værdi forskellig fra 0, hvis UART0 i vores Mega2560 har modtaget en karakter der er klar til at blive aflæst i UDR0 registeret. Hvilken funktion kan anvendes?</h2>
+                <h2 id="q20">(9 point) Vi ønsker at skrive en funktion der afventer at der modtages en karakter med USART0 i vores Mega2560. Herefter skal den modtagne karakter returneres af funktionen. Hvilken funktion kan anvendes?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q20" value="opt1"> <br>unsigned char CharReady() {<br>   return UCSR0A & 0b00100000;<br>}</label><br>
-                    <label><input type="radio" name="q20" value="opt2"> <br>unsigned char CharReady() {<br>   return UCSR0A | 0b10000000;<br>}</label><br>
-                    <label><input type="radio" name="q20" value="opt3"> <br>unsigned char CharReady() {<br>   return UCSR0A & 0b10000000;<br>}</label><br>
-                    <label><input type="radio" name="q20" value="opt4"> <br>unsigned char CharReady() {<br>   return UCSR0A | 0b00100000;<br>}</label>
+                    <label><input type="radio" name="q20" value="opt1" required> <pre>char getChar()
+{
+  while (UCSR0A & 0b10000000)
+  {}
+  return UDR0;
+}</pre></label>
+                    <label><input type="radio" name="q20" value="opt2"> <pre>char getChar()
+{
+  while ((UCSR0A & 0b00100000) == 0 )
+  {}
+  return UDR0;
+}</pre></label>
+                    <label><input type="radio" name="q20" value="opt3"> <pre>char getChar()
+{
+  while (UCSR0A & 0b00100000)
+  {}
+  return UDR0;
+}</pre></label>
+                    <label><input type="radio" name="q20" value="opt4"> <pre>char getChar()
+{
+  while ((UCSR0A & 0b10000000) == 0 )
+  {}
+  return UDR0;
+}</pre></label>
                 </div>
                 <div class="feedback" data-for="q20"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong></p>
-                    <p>RXC0‑flaget i registeret <code>UCSR0A</code> indikerer, om UART0 har modtaget en byte klar til aflæsning i <code>UDR0</code>.</p>
-                    <p>Vi tester flaget ved at AND'e registeret med masken <code>0b10000000</code> (RXC0‑bit):
-                    <br><code>if (UCSR0A & 0b10000000) { /* karakter klar */ }</code></p>
-                    <p>Hvis udtrykket er sandt (ikke‑nul), er en karakter klar — derfor returnerer funktionen en værdi forskellig fra 0, når der ligger data i bufferet.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q20">Tjek svar (20)</button></div>
             </section>
 
+            <!-- Spørgsmål 21 -->
             <section class="question" aria-labelledby="q21">
-                <h2 id="q21">21) En UART er initieret til:<br>1 startbit<br>8 databit<br>Lige (even) paritet<br>2 stopbit<br>Ved hvilken baudrate tager det 2,5 millisekunder at sende en frame (et tegn)?</h2>
+                <h2 id="q21">(11 point) Følgende kode initierer Mega2560's A/D-konverter:
+                    <pre>ADMUX  = 0b01000000;
+ADCSRA = 0b10100111;
+ADCSRB = 0b00000110;</pre>
+                    Hvad gælder herefter for start af hver ny A/D-konvertering ?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q21" value="1200"> 1200 bit/s</label>
-                    <label><input type="radio" name="q21" value="4800"> 4800 bit/s</label>
-                    <label><input type="radio" name="q21" value="9600"> 9600 bit/s</label>
-                    <label><input type="radio" name="q21" value="2400"> 2400 bit/s</label>
+                    <label><input type="radio" name="q21" value="opt1" required> A/D konverteren er i "Free Running Mode" (starter selv efter hver konvertering).</label>
+                    <label><input type="radio" name="q21" value="opt2"> Startes automatisk af timer 0 overflow.</label>
+                    <label><input type="radio" name="q21" value="opt3"> Startes automatisk af timer 1 overflow.</label>
+                    <label><input type="radio" name="q21" value="opt4"> Programmøren skal "manuelt" starte hver ny A/D-konvertering ved at sætte bit ADSC.</label>
                 </div>
                 <div class="feedback" data-for="q21"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong> Et frame indeholder 1 start + 8 data + 1 paritet + 2 stop = 12 bits. <br>12 bits på 2,5 ms → 12/0.0025 = 4800 baud.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q21">Tjek svar (21)</button></div>
             </section>
 
+            <!-- Spørgsmål 22 -->
             <section class="question" aria-labelledby="q22">
-                <h2 id="q22">22) Mega2560's A/D-konverter skal måle en spænding på benet ADC6.<br>A/D-konverterens clocksignal skal være mellem 50 kHz og 200 kHz.<br>CPU clockfrekvensen er 16 MHz.<br>Hvilken initiering er korrekt ?</h2>
+                <h2 id="q22">(10 point) En Mega2560's A/D-konverter skal ifølge databladet tilføres en clockfrekvens mellem 50 kHz og 200 kHz.
+                    <br>Der anvendes en CPU clockfrekvens på 4 MHz.
+                    <br>Hvilken initiering af registeret ADCSRA  er korrekt ?</h2>
                 <div class="options">
-                    <label><input type="radio" name="q22" value="opt1"> <br>ADMUX = 0b00000111;<br>ADCSRA = 0b10000111;<br>ADCSRB = 0b00000000;</label><br>
-                    <label><input type="radio" name="q22" value="opt2"> <br>ADMUX = 0b00000110;<br>ADCSRA = 0b10000111;<br>ADCSRB = 0b00000000;</label><br>
-                    <label><input type="radio" name="q22" value="opt3"> <br>ADMUX = 0b00000111;<br>ADCSRA = 0b10000011;<br>ADCSRB = 0b00000000;</label><br>
-                    <label><input type="radio" name="q22" value="opt4"> <br>ADMUX = 0b00000110;<br>ADCSRA = 0b10000011;<br>ADCSRB = 0b00000000;</label>
+                    <label><input type="radio" name="q22" value="opt1" required> ADCSRA = 0b10000000;</label>
+                    <label><input type="radio" name="q22" value="opt2"> ADCSRA = 0b10000100;</label>
+                    <label><input type="radio" name="q22" value="opt3"> ADCSRA = 0b10000111;</label>
+                    <label><input type="radio" name="q22" value="opt4"> ADCSRA = 0b10000101;</label>
                 </div>
                 <div class="feedback" data-for="q22"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong></p>
-                    <p>ADC'en bør køre med et clock i intervallet ca. <strong>50–200 kHz</strong> for at sikre nøjagtige konverteringer.</p>
-                    <p><strong>Formel</strong>:
-                    <br><code>ADC_clock = CPU_clock / prescaler</code>
-                    For at finde prescaleren isoleres den:
-                    <br><code>prescaler = CPU_clock / ADC_clock</code></p>
-                    <p><strong>Eksempel (valgt ADC_clock ≈ 125 kHz):</strong>
-                    <br><code>prescaler = 16 000 000 / 125 000 = 128</code>
-                    <br>125 kHz ligger i anbefalet interval, så prescaler = <strong>128</strong> er velegnet. <br>Husk også at sætte ADMUX til kanal <code>ADC6</code> for at måle på ADC6.</p>
-                </div>
                 <div class="q-actions"><button type="button" class="check-single" data-q="q22">Tjek svar (22)</button></div>
             </section>
 
-            <section class="question" aria-labelledby="q23">
-                <h2 id="q23">23) En Mega2560's A/D-konverter anvender en (ekstern) referencespænding på 4,0 volt.<br>Hvilken digital værdi forventes aflæst fra ADCW (ADCH+ADCL), når indgangsspændingen er 1,21 volt?</h2>
-                <div class="options">
-                    <label><input type="radio" name="q23" value="1023"> 1023</label>
-                    <label><input type="radio" name="q23" value="303"> 303</label>
-                    <label><input type="radio" name="q23" value="247"> 247</label>
-                    <label><input type="radio" name="q23" value="309"> 309</label>
-                </div>
-                <div class="feedback" data-for="q23"></div>
-                <div class="explain" hidden>
-                    <p><strong>Forklaring:</strong></p>
-                    <p>Den generelle relation for en n‑bit ADC er:
-                    <br><code>Vin / Vref = value / (2^n - 1)</code></p>
-                    <p>Isolér value for at finde den digitale værdi:
-                    <br><code>value = (2^n - 1) × Vin / Vref</code></p>
-                    <p>For en 10‑bit ADC (n = 10 → 2^10 − 1 = 1023) og Vin = 1,21 V, Vref = 4,0 V:
-                    <br><code>value = 1023 × 1.21 / 4.0 ≈ 309.46</code>
-                    <br>Den digitale aflæsning bliver derfor cirka <strong>309</strong> (nærmeste heltal).</p>
-                </div>
-                <div class="q-actions"><button type="button" class="check-single" data-q="q23">Tjek svar (23)</button></div>
-            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div class="actions">
                 <button type="button" id="checkBtn">Tjek svar</button>
@@ -640,30 +458,28 @@ TCCR1B = 0b00000001;</pre>
     <script>
         // Correct answers for the quiz
         const correct = {
-            q1: '-53',
-            q2: '12MHz',
-            q3: 'opt2',
-            q4: 'opt2',
-            q5: 'opt3'
-            // remaining question answers
-            ,q6: '31.25'
-            ,q7: '0'
-            ,q8: 'opt1'
-            ,q9: 'opt3'
-            ,q10: 'opt4'
-            ,q11: 'opt3'
-            ,q12: '16us'
-            ,q13: 'opt2'
-            ,q14: '124'
-            ,q15: 'opt1'
-            ,q16: '512'
-            ,q17: 'opt4'
-            ,q18: 'opt3'
-            ,q19: 'opt3'
-            ,q20: 'opt3'
-            ,q21: '4800'
-            ,q22: 'opt2'
-            ,q23: '309'
+            q1: '0b11011101',            // -35 i to-komplement
+            q2: 'opt4',                 // PC=0, alle I/O som input
+            q3: '21',                   // ender som 21
+            q4: 'opt2',                 // mangler POP -> ubalanceret stack
+            q5: '630',                  // cycles beregnet: 630
+            q6: 'opt1',                 // SW1 tænder, SW0 slukker
+            q7: '256us',                // 1023 cykler @4MHz ≈ 256 µs
+            q8: 'opt1',
+            q9: 'opt2',
+            q10: 'opt3',
+            q11: '8.39s',               // 16-bit med prescaler 1024 @8MHz
+            q12: '65536-31250',         // startværdi = 65536 - (2s*Fclk/Presc)
+            q13: '15624',
+            q14: '4MHz',
+            q15: '75%',
+            q16: '122Hz',
+            q17: 'opt2',
+            q18: 'opt3',
+            q19: '62.5ms',
+            q20: 'opt4',
+            q21: 'opt3',
+            q22: 'opt4'
         };
 
         // Optional HTML explanations shown when an answer is wrong.
@@ -672,7 +488,9 @@ TCCR1B = 0b00000001;</pre>
         const explanations = {
             q1: "<strong>Forkert.</strong> To-komplement omskrives til positiv på denne måde <code>~(bits-1)</code> eller <code>bits minus 1 hvorefter alle bits vændes</code> så dermed ville dette give <code>0b11001011 - 0b1 = 0b11001010</code> complimenteret <code>~0b11001010 = 0b00110101 = 53</code> nu skal vi huske tallet er negativt.",
             q4: "<p>Rigtigt svar er at addere lavord først og derefter addere med carry til højord: <code>ADD R22,R20</code> og <code>ADC R23,R21</code>.</p>",
-            q8: "<p>Man skal læse <code>PINA</code>, decrementere, komplementere og så skrive til <code>PORTB</code> — eksempel:</p><pre>IN R24,PINA\nDEC R24\nCOM R24\nOUT PORTB,R24</pre>"
+            q8: "<p>Man skal læse <code>PINA</code>, decrementere, komplementere og så skrive til <code>PORTB</code> — eksempel:</p><pre>IN R24,PINA\nDEC R24\nCOM R24\nOUT PORTB,R24</pre>",
+            q21: "<p><strong>Forklaring:</strong> ADATE=1 (Auto Trigger) og ADTS=110 (i ADCSRB) betyder, at ADC starter automatisk når Timer/Counter1 Compare Match B forekommer — det er ikke Free Running Mode (ADTS≠0) og heller ikke Timer0 overflow eller manuel start.</p>",
+            q22: "<p><strong>Forklaring:</strong> For f_CPU = 4 MHz skal ADC_clock være mellem 50–200 kHz. Tilgængelige prescalere giver ADC_clock = 4 MHz / N. Valgene N=32 (ADPS=101) → 125 kHz og N=64 (ADPS=110) → 62.5 kHz begge ligger i intervallet. Blandt de givne ADCSRA-opsætninger svarer <code>ADCSRA = 0b10000101</code> (ADEN=1, ADPS=101 → prescaler 32) til et ADC-clock ≈125 kHz, derfor er den korrekte initiering.</p>"
         };
 
         function collectChecked(name){
@@ -765,15 +583,29 @@ TCCR1B = 0b00000001;</pre>
             }
         }
 
+        function getPointsForSection(sec){
+            if(!sec) return 10; // default
+            try{
+                const h = sec.querySelector('h2');
+                const txt = (h && h.textContent) ? h.textContent : '';
+                const m = txt.match(/(\d+)\s*point/i);
+                if(m) return parseInt(m[1],10);
+            }catch(e){}
+            return 10;
+        }
+
         function evaluate(){
-            let score = 0;
+            let earned = 0;
+            let totalPoints = 0;
             const keys = Object.keys(correct);
-            const total = keys.length;
 
             keys.forEach(q=>{
                 const ans = correct[q];
                 const sec = document.querySelector(`section[aria-labelledby="${q}"]`);
                 if(!sec) return;
+
+                const pts = getPointsForSection(sec);
+                totalPoints += pts;
 
                 // clear visuals first
                 sec.querySelectorAll('.options label').forEach(l=>{ l.classList.remove('correct','wrong') });
@@ -782,15 +614,12 @@ TCCR1B = 0b00000001;</pre>
                     // multi
                     const chosen = collectChecked(q);
                     const expected = new Set(ans);
-                    const chosenSet = new Set(chosen);
                     // mark correct ones green
-                    sec.querySelectorAll(`input[name="${q}"]`).forEach(inp=>{
-                        const lab=inp.parentElement; if(expected.has(inp.value)) lab.classList.add('correct');
-                    });
+                    sec.querySelectorAll(`input[name="${q}"]`).forEach(inp=>{ const lab = inp.parentElement; if(expected.has(inp.value)) lab.classList.add('correct'); });
                     // mark chosen-but-wrong red
                     let wrong=false;
                     chosen.forEach(v=>{ if(!expected.has(v)){ wrong=true; const i=sec.querySelector(`input[name="${q}"][value="${v}"]`); if(i) i.parentElement.classList.add('wrong'); }});
-                    if(chosen.length>0 && !wrong && chosen.length === expected.size){ score++; showFeedback(q,'Korrekt', true);} else {
+                    if(chosen.length>0 && !wrong && chosen.length === expected.size){ earned += pts; showFeedback(q,`Korrekt (${pts} point)`, true);} else {
                         if(chosen.length===0) showFeedback(q, 'Vælg mindst én.', false);
                         else {
                             const explainHtml = getExplanationFor(q, sec);
@@ -801,11 +630,11 @@ TCCR1B = 0b00000001;</pre>
                 } else {
                     // single radio OR text
                     const textInput = sec.querySelector('input[type=text]');
-                    if(textInput){ const val=(textInput.value||'').trim(); if(val === ans){ score++; showFeedback(q,'Korrekt', true); textInput.style.border='2px solid #0b8a3a' } else { const explainHtml = getExplanationFor(q, sec); if(explainHtml) showFeedback(q, explainHtml, false, true); else showFeedback(q, val?`Forkert — korrekt svar er ${ans}.`:'Skriv venligst et svar.', false); textInput.style.border='2px solid #c53030' } }
+                    if(textInput){ const val=(textInput.value||'').trim(); if(val === ans){ earned += pts; showFeedback(q,`Korrekt (${pts} point)`, true); textInput.style.border='2px solid #0b8a3a' } else { const explainHtml = getExplanationFor(q, sec); if(explainHtml) showFeedback(q, explainHtml, false, true); else showFeedback(q, val?`Forkert — korrekt svar er ${ans}.`:'Skriv venligst et svar.', false); textInput.style.border='2px solid #c53030' } }
                     else {
                         const selected = sec.querySelector(`input[name="${q}"]:checked`);
                         if(!selected){ showFeedback(q,'Du skal vælge et svar.', false); }
-                        else { if(selected.value === ans){ score++; selected.parentElement.classList.add('correct'); showFeedback(q,'Korrekt', true);} else { selected.parentElement.classList.add('wrong'); const corr = sec.querySelector(`input[name="${q}"][value="${ans}"]`); if(corr) corr.parentElement.classList.add('correct'); const explainHtml = getExplanationFor(q, sec); if(explainHtml) showFeedback(q, explainHtml, false, true); else showFeedback(q, 'Forkert — korrekt svar er markeret.', false);} }
+                        else { if(selected.value === ans){ earned += pts; selected.parentElement.classList.add('correct'); showFeedback(q,`Korrekt (${pts} point)`, true);} else { selected.parentElement.classList.add('wrong'); const corr = sec.querySelector(`input[name="${q}"][value="${ans}"]`); if(corr) corr.parentElement.classList.add('correct'); const explainHtml = getExplanationFor(q, sec); if(explainHtml) showFeedback(q, explainHtml, false, true); else showFeedback(q, 'Forkert — korrekt svar er markeret.', false);} }
                     }
                 }
             });
@@ -813,8 +642,9 @@ TCCR1B = 0b00000001;</pre>
             // Show summary
             const result = document.getElementById('result');
             result.hidden = false;
-            result.innerHTML = `<strong>Din score:</strong> ${score} / ${total} (${Math.round((score/total)*100)}%)`;
-            if(score === total) result.style.background = '#e6f7ea';
+            const pct = totalPoints ? Math.round((earned/totalPoints)*100) : 0;
+            result.innerHTML = `<strong>Din score:</strong> ${earned} / ${totalPoints} (${pct}%)`;
+            if(earned === totalPoints) result.style.background = '#e6f7ea';
             else result.style.background = '#fff3cd';
         }
 
